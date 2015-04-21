@@ -11,14 +11,14 @@ class Api::V1::UsersController < ApplicationController
 		render json: @articles
 	end
 
-	def create
-		@article = Article.new(user_params)
-		if user.save
-			head 200
-		else
-			head 500
-		end
-	end
+	# def create
+	# 	@user = User.new(user_params)
+	# 	if @user.save
+	# 		head 200
+	# 	else
+	# 		head 500
+	# 	end
+	# end
 
 	private
 

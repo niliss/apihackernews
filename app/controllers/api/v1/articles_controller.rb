@@ -18,8 +18,14 @@ skip_before_filter :verify_authenticity_token
 	end
 
 	private
-
 		def article_params
 			params.require(:article).permit(:title, :body, :user_id)
+		end
+
+	protected
+		def authenticate
+			authenticate_or_request_with_http_token do |token, options|
+				
+			end
 		end
 end
