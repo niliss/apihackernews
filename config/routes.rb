@@ -2,16 +2,16 @@ Rails.application.routes.draw do
 
   root 'articles#index'
   
-  # namespace :api do
-  #   namespace :v1 do
-  #     resources :users, :articles, :comments
-  #   end
-  # end
+  namespace :api do
+    namespace :v1 do
+      resources :users, :articles, :comments
+    end
+  end
 
-  # get "users/index"
-  # get "articles/index"
+  get "users/index"
+   get "articles/index"
 
-  resources :users
-  resources :articles
+  # resources :users
+  # resources :articles
 
 end
