@@ -27,6 +27,8 @@ gem 'faker'
 
 gem 'awesome_print', '~> 1.6.1'
 
+
+gem 'thin', '~> 1.6.3'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
