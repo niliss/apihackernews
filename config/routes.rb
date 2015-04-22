@@ -6,7 +6,7 @@
     namespace :v1 do
       resources :articles, :comments
       resources :users do
-        resources :tokens
+        post "tokens" => "users#create_token"
       end
     end
   end
