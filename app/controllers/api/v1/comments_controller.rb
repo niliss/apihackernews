@@ -2,6 +2,12 @@ class Api::V1::CommentsController < ApplicationController
 	before_action :authenticate
 	skip_before_filter :verify_authenticity_token
 	
+	def index
+		@comments = Comment.all
+		render json: @comments
+	end
+
+
 	def create
 		@comment = Comment.new(	comment_params)
 		if @comment.save
@@ -26,7 +32,7 @@ class Api::V1::CommentsController < ApplicationController
 	protected
 		def authenticate
 			authenticate_or_request_with_http_token do |token, options|
-				User.find(token: token)
+				User.find_by(token: token)
 				# Token.find_by(token: token)
 			end
 		end

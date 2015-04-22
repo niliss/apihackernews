@@ -25,11 +25,12 @@ class Api::V1::UsersController < ApplicationController
 
 	def create_token
 		@user = User.find(params[:user_id])
-
+		token = SecureRandom.uuid.gsub(/\-/,'')
 		if @user.tokens.count == 0
-			render json: @user.tokens.create(token: SecureRandom.uuid.gsub(/\-/,'')), status: 200
+			@user.token = token
+			render json: @user.tokens.create(token: token), status: 200
 		else
-			token = SecureRandom.uuid.gsub(/\-/,'')
+			@user.token = token
 			@user.tokens.first.update(token: token)
 			render json: {
 				status: 200,
