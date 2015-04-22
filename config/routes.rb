@@ -6,13 +6,13 @@
     namespace :v1 do
       resources :articles, :comments
       resources :users do
-        post "tokens" => "users#create_token"
+        get "tokens" => "users#create_token"
       end
     end
   end
 
   get "users/index"
-   get "articles/index"
+  get "articles/index"
 
   # resources :users
   # resources :articles

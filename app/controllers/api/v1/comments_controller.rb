@@ -1,5 +1,5 @@
 class Api::V1::CommentsController < ApplicationController
-skip_before_filter :verify_authenticity_token
+# skip_before_filter :verify_authenticity_token
 	
 	def create
 		@comment = Comment.new(	comment_params)
@@ -18,9 +18,15 @@ skip_before_filter :verify_authenticity_token
 	end
 
 	private
-
 		def comment_params
 			params.require(:comment).permit(:body, :user_id, :article_id)
 		end
 
+	protected
+		def authenticate
+			authenticate_or_request_with_http_token do |token, options|
+				User.find_by(auth_token: token)
+			end
+		end
+		
 end

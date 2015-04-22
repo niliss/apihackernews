@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-	# require 'securerandom'
+  require 'securerandom'
   # before_create :set_auth_token
 
 
@@ -25,7 +25,18 @@ class Api::V1::UsersController < ApplicationController
 
 	def create_token
 		@user = User.find(params[:user_id])
-		render json: @user.tokens.create(token: SecureRandom.uuid.gsub(/\-/,'')), status: 200
+
+		if @user.tokens.count == 0
+			render json: @user.tokens.create(token: SecureRandom.uuid.gsub(/\-/,'')), status: 200
+		else
+			token = SecureRandom.uuid.gsub(/\-/,'')
+			@user.tokens.first.update(token: token)
+			render json: {
+				status: 200,
+				token: token
+			}.to_json
+		end
+	
 	end
 
 	private
@@ -33,4 +44,5 @@ class Api::V1::UsersController < ApplicationController
 		def user_params
 			params.require(:user).permit(:name, :username, :email)
 		end
+
 end
