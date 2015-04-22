@@ -29,27 +29,7 @@ class Api::V1::CommentsController < ApplicationController
 			params.require(:comment).permit(:body, :user_id, :article_id)
 		end
 
-	protected
-		def authenticate
-			authenticate_or_request_with_http_token do |token, options|
-				User.find_by(token: token)
-				# Token.find_by(token: token)
-			end
-		end
-		
-		def rate_limit
-			@select = Request.where(created_at: (Time.now - 1.day)..Time.now)
-			Request.destroy_all(['created_at NOT IN (?)', @select])
-			@rates_allowed = 2
-			if Request.where(token: token).count > @rates_allowed
-				render json: {
-					status: 411,
-					message: "Rate exceeded"
-				}.to_json
-			else
-				Request.create(token: token)
-			end
-		end
+
 end
 
 

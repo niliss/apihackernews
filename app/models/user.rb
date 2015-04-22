@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 				return false
 			end
 	end
-
+	
 	def self.destroy
 		@history = (Time.now - 1.year)
 		@after = (Time.now - 1.minute)
