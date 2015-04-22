@@ -36,8 +36,5 @@ class Api::V1::CommentsController < ApplicationController
 				# Token.find_by(token: token)
 			end
 		end
-		def render_unauthorized
-			self.headers['WWW-Authenticate'] = 'Token realm="Application"'
-			render json: 'Bad credentials', status: 401
-		end
+		
 end
