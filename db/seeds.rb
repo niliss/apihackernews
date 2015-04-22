@@ -5,12 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-
+require 'securerandom'
 
 20.times do 
 	user_id = rand(1..20)
 	username =  Faker::Internet.user_name
-	User.create(name: Faker::Name.name, email: Faker::Internet.email, username: username)
+
+	User.create(name: Faker::Name.name, email: Faker::Internet.email, username: username, token: SecureRandom.uuid.gsub(/\-/,''))
 	2.times do 
 		Article.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph, user_id: user_id )
 	

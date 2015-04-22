@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   require 'securerandom'
-  # before_create :set_auth_token
+  # before_create :create_token
 
 
 	def index
@@ -26,17 +26,13 @@ class Api::V1::UsersController < ApplicationController
 	def create_token
 		@user = User.find(params[:user_id])
 		token = SecureRandom.uuid.gsub(/\-/,'')
-		if @user.tokens.count == 0
-			@user.token = token
-			render json: @user.tokens.create(token: token), status: 200
-		else
-			@user.token = token
-			@user.tokens.first.update(token: token)
+			@user.update(token: token)
+			@user.save
 			render json: {
 				status: 200,
 				token: token
 			}.to_json
-		end
+
 	
 	end
 
