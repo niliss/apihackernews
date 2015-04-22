@@ -26,7 +26,7 @@ class Api::V1::CommentsController < ApplicationController
 	protected
 		def authenticate
 			authenticate_or_request_with_http_token do |token, options|
-				User.find(params[:user_id]).tokens[0].token
+				User.find(token: token)
 				# Token.find_by(token: token)
 			end
 		end
